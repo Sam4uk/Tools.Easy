@@ -37,5 +37,7 @@
 #define degrees(rad) ((rad)*RAD_TO_DEG)
 #define map(value, in_min, in_max, out_min, out_max)                           \
   ((value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
+
+#define maxBitValue(bits) ((1ULL << (bits)) - 1)
   
 #endif ///< _TOOLS_EASY_HPP_
