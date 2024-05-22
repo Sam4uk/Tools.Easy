@@ -18,7 +18,7 @@
 
 #define wbi(reg, bit, value) (value ? sbi(reg, bit) : cbi(reg, bit))
 #define rbi(reg, bit) ((reg >> bit) & 0x1)
-
+#if 0 
 #define PI (3.1415926535897932384626433832795028841971693993751)
 #define DEG_TO_RAD (0.0174532925199432957692369076848861271344287188854)
 #define RAD_TO_DEG (57.295779513082320876798154814105170332405472466564)
@@ -37,7 +37,7 @@
 #define degrees(rad) ((rad)*RAD_TO_DEG)
 #define map(value, in_min, in_max, out_min, out_max)                           \
   ((value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
-
+#endif
 #define maxBitValue(bits) ((1ULL << (bits)) - 1)
   
 #endif ///< _TOOLS_EASY_HPP_
