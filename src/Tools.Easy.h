@@ -43,13 +43,24 @@
 /// @brief get size array
 #define getArraySize(X) (sizeof(X) / sizeof(*X))
 
+#if !defined(MEGACORE)
+#endif
+
 /// @brief
 #if !defined(M_PI)
 #define M_PI (3.1415926535897932384626433832795028841971693993751)
 #endif
 
+#if defined(RAD_TO_DEG)
+#undef RAD_TO_DEG
+#endif
+
 /// @brief
 #define RAD_TO_DEG (180. / M_PI)
+
+#if defined(DEG_TO_RAD)
+#undef DEG_TO_RAD
+#endif
 
 /// @brief
 #define DEG_TO_RAD (M_PI / 180.)
@@ -87,6 +98,8 @@
 #endif
 
 #if defined(__cplusplus)
+#if !defined(MEGACORE)
+
 /// @brief
 /// @tparam T
 /// @param value
@@ -103,8 +116,9 @@ auto abs(const T &value) -> decltype(value > 0 ? value : -value) {
 /// @param value_b
 /// @return
 template <class T1, class T2>
-auto min(const T1 &value_a, const T2 &value_b)
-    -> decltype((value_b < value_a) ? value_b : value_a) {
+auto min(const T1 &value_a, const T2 &value_b) -> decltype((value_b < value_a)
+                                                               ? value_b
+                                                               : value_a) {
   return (value_b < value_a) ? value_b : value_a;
 }
 
@@ -115,8 +129,9 @@ auto min(const T1 &value_a, const T2 &value_b)
 /// @param value_b
 /// @return
 template <class T1, class T2>
-auto max(const T1 &value_a, const T2 &value_b)
-    -> decltype((value_b < value_a) ? value_b : value_a) {
+auto max(const T1 &value_a, const T2 &value_b) -> decltype((value_b < value_a)
+                                                               ? value_b
+                                                               : value_a) {
   return (value_a < value_b) ? value_b : value_a;
 }
 
@@ -161,14 +176,14 @@ template <class T> auto degrees(const T &rad) -> decltype(rad * RAD_TO_DEG) {
 /// @param high
 /// @return
 template <class T, class TL, class TH>
-auto constrain(const T &value, const TL &low, const TH &high)
-    -> decltype((value < low)    ? low
-                : (value > high) ? high
-                                 : value) {
+auto constrain(const T &value, const TL &low,
+               const TH &high) -> decltype((value < low)    ? low
+                                           : (value > high) ? high
+                                                            : value) {
   return (value < low) ? low : (value > high) ? high : value;
 }
-
-#else // __cplusplus
+#endif // MEGACORE
+#else  // __cplusplus
 
 /// @brief
 #define abs(value)                                                             \
@@ -201,10 +216,10 @@ auto constrain(const T &value, const TL &low, const TH &high)
   })
 
 /// @brief
-#define radians(deg) ((deg)*DEG_TO_RAD)
+#define radians(deg) ((deg) * DEG_TO_RAD)
 
 /// @brief
-#define degrees(rad) ((rad)*RAD_TO_DEG)
+#define degrees(rad) ((rad) * RAD_TO_DEG)
 
 /// @brief
 #define constrain(value, low, high)                                            \
